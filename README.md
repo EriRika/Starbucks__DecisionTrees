@@ -1,5 +1,5 @@
 # Starbucks__DecisionTrees
-Capstone project of Udacity course. Got event data of an experiment. Main task was to restructure the data and derive success or fail drivers
+Capstone project of Udacity course. I received event data of an experiment with the accoring campaign informatione and demographic data. The main task was to restructure the data and derive success or fail drivers.
 
 ## Table of contents
 
