@@ -112,6 +112,6 @@ In this analysis I tried to answer 4 business questions
 ![alt text](https://github.com/EriRika/Starbucks__DecisionTrees/blob/master/RegressionPersonOffer.png)
 
    
-[Medium Post - What Secrets does Airbnb data tell me about Seattle?](https://erikagintautas.medium.com/what-secrets-does-airbnb-data-tell-me-about-seattle-49fba69eb362)
+[Medium Post - How Decision trees can help to find success drivers?](https://erikagintautas.medium.com/how-decision-trees-can-help-to-find-success-drivers-17edce59e1be)
 
 
