@@ -168,7 +168,10 @@ For every campaign (offer_id) I created separate columns like the start_time of 
 In the above example I want all further rows to be 0 until an offer is completed (or not valid any more).
 Using groupby with ffill did the trick
 
+   -![FFill](https://github.com/EriRika/Starbucks__DecisionTrees/blob/master/images/ffill.PNG "ffill") 
 The ffill method fills all NaN values in all consecutive rows until it finds the next non-Nan value. I made use of this behaviour by creating blockers. Whenever an event was "offer completed" I filled in a random number (in my case 500)
+
+   -![Blockers](https://github.com/EriRika/Starbucks__DecisionTrees/blob/master/images/blockers.PNG "blockers") 
 
 ### Data Preprocessing - Feature selection and dummy creation
 
@@ -189,7 +192,7 @@ We have to be careful with features like age and income though. E.g. a decision 
 In my experience decision trees tend to overvalue such features and your most important features might become age and income. Therefore, I created age, income and membership buckets in order to treat them like categorical features.
 I used pandas qcut to create buckets. It cuts an array based on quantiles.
 I could have also used pandas.cut function, but I though that I catch more particularities of the data by using quantiles. Especially when it comes to outliers.
-
+   -![Pandas qcut](https://github.com/EriRika/Starbucks__DecisionTrees/blob/master/images/qcut.PNG "pd.qcut") 
 
 
 **My final list of features looks as follows**
@@ -234,11 +237,16 @@ The basic difference in creating those dataframes was the groupby (either groupe
 ### Implementation
 Reminder: I was going to test two different input dataframes and to predict passive rewards by using DecisionTreeRegressor and RandomForestRegressor
 I stored all dataframes the temporary file, the One-row-per-customer-and-per-offer and the One-row-per-customer as sqlite databases. The temp file is not necessary to run the prediction, but it was convenient to store it because it takes approx. 15 minutes to create it.
-Creating a simple machine learning pipeline
+
+#### Creating a simple machine learning pipeline
 After preparing the data and storing it in a sqlite database I wrote a loading function.
+
+   -![load_data](https://github.com/EriRika/Starbucks__DecisionTrees/blob/master/images/load_data.PNG "load_data")
 
 I didn't know which settings where the best for the methods, therefore I tried several combinations with GridSearchCV. The nice thing about it is that it even performs a cross-validation splitting strategy when looking for the best parameters.
 Once it's done, you can look at the best parameters with the best_params_ method.
+
+   -![Build Model](https://github.com/EriRika/Starbucks__DecisionTrees/blob/master/images/build_model.PNG "build_model")
 
 I ran the first prediction on the One row per customer dataframe and I was pretty disappointed.
 - DecisionTreeRegressor - R2 0.149
@@ -271,6 +279,8 @@ multiply with the average reward possible
 ## Model Evaluation and Validation
 I used sklearns r2_score to evaluate my model. I trained it on 80% of the data and validated it on the remaining 20%.
 
+   -![train_evaluate](https://github.com/EriRika/Starbucks__DecisionTrees/blob/master/images/train_evaluate.PNG "train_evaluate") 
+
 In the end the best model was the simplest model without any additional features or adaptions
    -![R2 by models](https://github.com/EriRika/Starbucks__DecisionTrees/blob/master/images/R2%20results.PNG "R2 by models") 
 
@@ -288,6 +298,8 @@ I found it particularly difficult to transform the event-based data into the rig
 
 Even though RandomForest performed better in my tests I took a look at the tree structure of a DecisionTree to see, if I can derive somebusiness rules from that. The most obvious customer group in general was the high income group. These customers tend to purchase anyway and hence 
 Sklearn provides a class tree, which has a plot_tree method.
+
+   -![Plot Tree](https://github.com/EriRika/Starbucks__DecisionTrees/blob/master/images/plot_tree.PNG "Plot tree") 
 
 **Class 1 High passive reward:**
 - Offer is not reward_5 offer
