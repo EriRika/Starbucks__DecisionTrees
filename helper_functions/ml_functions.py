@@ -11,7 +11,7 @@ from sklearn.metrics import r2_score
 
 
 
-def build_model_Regression(X, model = 'RandomForestRegressor', verbose = 2, cv = 5):
+def build_model_Regression(X, model = 'RandomForestRegressor', verbose = 2, cv = 5, param_grid = {'clf__ccp_alpha': [0],'clf__criterion': ['mse', 'friedman_mse'],'clf__max_depth': [3, 5, 10],'clf__max_features': [None, 20, 10],'clf__min_samples_leaf': [680, 1000, 100]}):
     """Create pipeline with CountVectorizer, TfidfTransformer, MultioutputClassifier and RandomForestClassifier"""
     if model == 'DecisionTreeRegressor':
         parameters = {
@@ -26,16 +26,7 @@ def build_model_Regression(X, model = 'RandomForestRegressor', verbose = 2, cv =
         #('clf', RandomForestRegressor(random_state=42 ))
         ])
     elif model == 'RandomForestRegressor':
-        parameters = {
-            'clf__max_features': [None, 20, 10],
-            'clf__min_samples_leaf': [int(X.shape[0]*0.05),1000,100],
-            'clf__criterion': ['mse', 'mae'],
-            'clf__max_depth': [10, 15],
-            #'clf__ccp_alpha': [0],
-            'clf__n_estimators': [100, 1000],
-            'clf__bootstrap': [True, False]
-
-        }
+        parameters = param_grid
         pipeline = Pipeline([
             ('clf', RandomForestRegressor(random_state=42 ))
         ])
@@ -71,15 +62,13 @@ def build_model_Classification(X, model = ''):
 def evaluate_model(model, X_test, Y_test):
     Y_pred = model.predict(X_test)
     errors = abs(Y_pred - Y_test)
-    mape = 100 * np.mean(errors / Y_test)
-    accuracy = 100 - mape
+    mae = 100 * np.mean(errors)
     r2 = r2_score(Y_test, Y_pred)
     print('Model Performance')
     print('Average Error: {:0.4f} degrees.'.format(np.mean(errors)))
-    print('Accuracy = {:0.2f}%.'.format(accuracy))
     print('R^2 Sscore of model: ', r2_score(Y_test, Y_pred))
     
-    return y_pred, accuracy, mape, r2
+    return Y_pred, mae, r2
     
 
     

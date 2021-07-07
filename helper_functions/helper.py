@@ -40,7 +40,7 @@ def k_bin_discretizer(col, df, exclude = True, buckets = [0, 0.1, 0.2, 0.3, 0.4,
         df_temp.loc[df_temp[col]!=118,col + '_bucket'] = pd.qcut(df_temp.loc[df_temp[col]!=118,col], buckets, labels = [i for i in range(0, len(buckets)-1)])
         df_temp.loc[df_temp[col]==118, col + '_bucket'] = 118
     else:
-        df_temp = pd.qcut(df_temp[col], buckets, duplicates= 'drop')
+        df_temp.loc[:,col + '_bucket'] = pd.qcut(df_temp[col], buckets, duplicates= 'drop')
     return df_temp
 
 def get_dummy(df, col, dummy_na = False, drop_col = True):
