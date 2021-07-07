@@ -258,6 +258,19 @@ I didn't know which settings where the best for the methods, therefore I tried s
 Once it's done, you can look at the best parameters with the best_params_ method.
 
    -![Build Model](https://github.com/EriRika/Starbucks__DecisionTrees/blob/master/images/build_model.PNG "build_model")
+   
+####GridSearchCV
+Using GridSearch allowed me to test several hyper parameters. I ran the first prediction on the One row per customer dataframe with the following hyper parameters
+- criterion: [‘mse’, ‘friedman_mse’]
+- max_depth: [3, 5, 10],
+- max_features: [None, 20, 10]
+- min_samples_leaf: [680, 1000, 100]
+
+The best results were achieved by
+- criterion: mse
+- max_depth: 10
+- max_features: None
+- min_samples_leaf: 100
 
 I ran the first prediction on the One row per customer dataframe and I was pretty disappointed.
 - DecisionTreeRegressor - R2 0.149
@@ -269,7 +282,8 @@ Running the prediction on the One row per customer and per offer dataframe was e
 
 ## Refinement
 From that point on I continued working only with the One row per customer dataframe. I realized that predicting the total amount of passive rewards did not work well.
-**First Idea**
+
+**Create or derive new features**
 I figured that maybe I have to first classify if a customer gets a passive reward at all. I ran a classification (RandomForestClassifier) on the target variable has_passive reward first and used that as an input
 - RandomForestRegressor with has_passive Classification - R2 0.131
 
@@ -279,7 +293,17 @@ Since this did not generate the desired result I started to doubt my input featu
 This did not improve my model - I decided to include a feature which contains the average difficulty level per customer.
 - RandomForestRegressor with total_award_possible & average_difficulty - R2 0.171
 
-**Second Idea**
+**Tune hyperparameters**
+Based on the results from the first run I knew where to try further improvements. I retrained RandomForestRegressor with new parameters, while a included the winners of the first run. The final R2 was 0.186, which was the best.
+- criterion: mse
+- max_depth: [10, 15, 20]
+- max_features: None
+- min_samples_leaf: [100, 50]
+- n_estimators: [100, 1000]
+- bootstrap: [True, False]
+
+
+**Use a combined model**
 One last approach I tried was a mix between machine learning and a heuristic model.
 predict if a customer has a passive reward with a classifier
 multiply with the average reward possible
@@ -293,12 +317,21 @@ I used sklearns r2_score to evaluate my model. I trained it on 80% of the data a
    -![train_evaluate](https://github.com/EriRika/Starbucks__DecisionTrees/blob/master/images/train_evaluate.PNG "train_evaluate") 
 
 In the end the best model was the simplest model without any additional features or adaptions
-   -![R2 by models](https://github.com/EriRika/Starbucks__DecisionTrees/blob/master/images/R2%20results.PNG "R2 by models") 
+   -![R2 by models](https://github.com/EriRika/Starbucks__DecisionTrees/blob/master/images/R2_by_model.PNG "R2 by models") 
+
+### Feature importances
+When looking at the top 10 feature importances of the best performing model one can see that the most important features are the offer ids and not the offer_type, channel, difficulty, reward or duration. This makes sense since each offer id represents a unique combination of those and hence contains more information.
+   -![Feature Importance](https://github.com/EriRika/Starbucks__DecisionTrees/blob/master/images/Feature%20Importances.PNG "Feature Importance")
 
 ## Justification
 I must admit that I struggled to find a model, which was able to predict the passive rewards per customer at a satisfying level. The highest R2 score, which I reached was 0.178 by using RandomForestRegressor. 
 RandomForest performs better than a simple DecisionTree because it is designed to be better than a simple decision tree. It fits a number of decision trees on sub-samples and uses averaging to improve the predictive accuracy.
 The fact that I couldn't find or create any additional features to improve the model could mean that the existing features contained all the necessary information and that the new features did not create new value for the algorithm.
+
+Using GridSearch has two significant advantages
+- It tells me the best combination of parameters by running through all possible combinations
+- It performs k-fold cross-validation
+
 The combined heuristic model does not work well, because it multiplies two predictions, which increases the error. First it classifies and then it multiplies with an average value.
 
 # Conclusion
