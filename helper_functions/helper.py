@@ -199,7 +199,7 @@ def merge_trans_profile(transcript, profile):
     profile_df = profile.copy()
     transcript_df = transcript_df.merge(profile_df, left_on = 'person', right_on ='id', how = 'left')
     return transcript_df
-       
+
 def transform_by_person_offer(transcript_df_final):
     """
     Takes temporary/help dataframe and performs grouping by person adn by offer id 
@@ -428,7 +428,7 @@ def get_final_training_df(df, group_by = ['person']):
 
 def store_data(filename, df):
     df_store = df.copy()
-    engine = create_engine('sqlite:///'+filename+'.db')
+    engine = create_engine('sqlite:///output/'+filename+'.db')
     df_store.to_sql(filename, engine, index=False, if_exists='replace')
 
 def load_data(filename, train_features, target_features):
@@ -436,7 +436,7 @@ def load_data(filename, train_features, target_features):
     Load Data from database
     Split into Features X and Target Y (Last 36 columns)
     """
-    engine = create_engine('sqlite:///' + filename+'.db')
+    engine = create_engine('sqlite:///output/' + filename+'.db')
     df = pd.read_sql_table(filename, engine)
 
     Y = df.loc[:,target_features]
