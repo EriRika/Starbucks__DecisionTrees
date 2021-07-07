@@ -81,7 +81,8 @@ Initially I considered to perform an A/B test, but I had no holdout group nor di
 ### Metrics
 I will perform regression models in order to predict the passive reward. 
 For this project my final metric is the R-2 Score. It represents the proportion of variance (of y) that has been explained by the independent variables in the model.
-    -![R-2 Score](https://github.com/EriRika/Starbucks__DecisionTrees/blob/master/images/R2%20formula.PNG "R-2 Score")
+    
+-![R-2 Score](https://github.com/EriRika/Starbucks__DecisionTrees/blob/master/images/R2%20formula.PNG "R-2 Score")
 
 ## Analysis
 ### Data exploration and visualization
@@ -90,24 +91,26 @@ The project contains three datasets.
 
 #### portfolio
 There are in total 10 offers. All of the offers are unique in terms of their characteristic combination. This also means that I can either use the offer_id as a feature, or the combination of reward, duration and difficulty.
-    -![portfolio](https://github.com/EriRika/Starbucks__DecisionTrees/blob/master/images/portfolio.PNG "Portfolio")
+-![portfolio](https://github.com/EriRika/Starbucks__DecisionTrees/blob/master/images/portfolio.PNG "Portfolio")
 
 #### profile
 There are in total 17000 customers in the dataset. I will have to perform some data cleaning later as there is one group of customers, which appears to have an age of 118. This group has missing values in income and gender. I assume that this is due to some data privacy restrictions.
-   -![Profile](https://github.com/EriRika/Starbucks__DecisionTrees/blob/master/images/profile.PNG "Profile")
+-![Profile](https://github.com/EriRika/Starbucks__DecisionTrees/blob/master/images/profile.PNG "Profile")
 
 The age group 118 is by far the biggest age group and represents 13% of the customer base.
-   -![Histogram of ages](https://github.com/EriRika/Starbucks__DecisionTrees/blob/master/images/histogram_ages.png "Histogram of ages")
+
+-![Histogram of ages](https://github.com/EriRika/Starbucks__DecisionTrees/blob/master/images/histogram_ages.png "Histogram of ages")
    
 When filtering for the age=118 it turns out that all gender and income values are missing.
-   -![Age is 118](https://github.com/EriRika/Starbucks__DecisionTrees/blob/master/images/age_118.PNG "Age is 118")
+
+-![Age is 118](https://github.com/EriRika/Starbucks__DecisionTrees/blob/master/images/age_118.PNG "Age is 118")
 
 When filtering for the age!=118 it turns out none of the values are missing.
-   -![Age is not 118](https://github.com/EriRika/Starbucks__DecisionTrees/blob/master/images/age_Not_118.PNG "Age is 118")
+-![Age is not 118](https://github.com/EriRika/Starbucks__DecisionTrees/blob/master/images/age_Not_118.PNG "Age is 118")
 
 I will have to transform categorical variables into dummy variables, hence it is important to look at the unique values per category.
 
-   -![unique values by column](https://github.com/EriRika/Starbucks__DecisionTrees/blob/master/images/unique_by_col.PNG "unique values by column")
+-![unique values by column](https://github.com/EriRika/Starbucks__DecisionTrees/blob/master/images/unique_by_col.PNG "unique values by column")
 
 
 
