@@ -91,10 +91,12 @@ The project contains three datasets.
 
 #### portfolio
 There are in total 10 offers. All of the offers are unique in terms of their characteristic combination. This also means that I can either use the offer_id as a feature, or the combination of reward, duration and difficulty.
+
 -![portfolio](https://github.com/EriRika/Starbucks__DecisionTrees/blob/master/images/portfolio.PNG "Portfolio")
 
 #### profile
 There are in total 17000 customers in the dataset. I will have to perform some data cleaning later as there is one group of customers, which appears to have an age of 118. This group has missing values in income and gender. I assume that this is due to some data privacy restrictions.
+
 -![Profile](https://github.com/EriRika/Starbucks__DecisionTrees/blob/master/images/profile.PNG "Profile")
 
 The age group 118 is by far the biggest age group and represents 13% of the customer base.
@@ -106,6 +108,7 @@ When filtering for the age=118 it turns out that all gender and income values ar
 -![Age is 118](https://github.com/EriRika/Starbucks__DecisionTrees/blob/master/images/age_118.PNG "Age is 118")
 
 When filtering for the age!=118 it turns out none of the values are missing.
+
 -![Age is not 118](https://github.com/EriRika/Starbucks__DecisionTrees/blob/master/images/age_Not_118.PNG "Age is 118")
 
 I will have to transform categorical variables into dummy variables, hence it is important to look at the unique values per category.
@@ -115,21 +118,26 @@ I will have to transform categorical variables into dummy variables, hence it is
 
 
 I created buckets of 0.1 quantiles for the age to perform some plots. There are more males than females in the dataset. Interestingly the gap between males and females decreases with the age of the customer
-   -![Distribution by Age and gender](https://github.com/EriRika/Starbucks__DecisionTrees/blob/master/images/customer_by_gender_and_gender.png "Distribution by Age and gender")
+
+-![Distribution by Age and gender](https://github.com/EriRika/Starbucks__DecisionTrees/blob/master/images/customer_by_gender_and_gender.png "Distribution by Age and gender")
 
 In this dataset there are more females with a very high income. Low to medium income has more male customers.
-   -![Histogram of income by gender](https://github.com/EriRika/Starbucks__DecisionTrees/blob/master/images/hist_by_gender.png "Hist by gender")
+
+-![Histogram of income by gender](https://github.com/EriRika/Starbucks__DecisionTrees/blob/master/images/hist_by_gender.png "Hist by gender")
 
 
 The income grows with increasing age.
+
 -![Income boxplot by age bucket](https://github.com/EriRika/Starbucks__DecisionTrees/blob/master/images/income_by_age_bucket.png "Income boxplot by age bucket")
    
 #### Transcripts
 The transcript file contains 306534 events. It has no missing values.
-   -![Transcript data](https://github.com/EriRika/Starbucks__DecisionTrees/blob/master/images/transcript.PNG "Transcript data")
+
+-![Transcript data](https://github.com/EriRika/Starbucks__DecisionTrees/blob/master/images/transcript.PNG "Transcript data")
 
 Not every person received the same amount of offers. There are 6 persons without an offer. Other than that everyone received at least one offer.
-   -![Offers per person](https://github.com/EriRika/Starbucks__DecisionTrees/blob/master/images/offers_per_person.png "Offers per person")
+
+-![Offers per person](https://github.com/EriRika/Starbucks__DecisionTrees/blob/master/images/offers_per_person.png "Offers per person")
 
 The offers were sent randomly, such that each offer was sent at approx. the same frequency per time. This means that it does not makes sense to look at "offer paths". 
 Initially I thought that it might be interesting to look at the order at which a customer received offers. But there are 13727 unique offer paths for 17000 people.
