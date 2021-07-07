@@ -64,11 +64,11 @@ The data can be found on my github profile. The project contains three files.
 The biggest part of this project was to understand and to prepare the data. The data was event-driven data, which means that events can overlap. On top of that it was important to understand that offers can be viewed by the customer and rewards can be gained afterwards when a certain spend threshold was reached. But this can also happen, if the customer never viewed the offer and hence did not know about the offer.
 
 ### Definitions
-An offer is active, if it has been viewed by the customer and if it is still valid.
-An offer is passive, if it has been viewed by the customer and if it is still valid.
-Same holds true for transactions
-A transaction is independent, if it was done during a period, where no offer is valid
-If a transaction happens during a period, where several offers are valid, I allocate a share of the transaction to each offer
+- An offer is active, if it has been viewed by the customer and if it is still valid.
+- An offer is passive, if it has not been viewed by the customer and if it is still valid.
+- Same holds true for transactions
+- A transaction is independent, if it was done during a period, where no offer is valid
+- If a transaction happens during a period, where several offers are valid, I allocate a share of the transaction to each offer
 
 I use reward and cost in the same way as rewards are costs for starbucks. 
 Initially I considered to perform an A/B test, but I had no holdout group nor different time periods to compare against. Hence I decided to focus on minimizing rewards payed to customers, who never viewed the offer - minimize passive rewards.
@@ -97,6 +97,17 @@ There are in total 17000 customers in the dataset. I will have to perform some d
    -![Profile](https://github.com/EriRika/Starbucks__DecisionTrees/blob/master/images/profile.PNG "Profile")
 The age group 118 is by far the biggest age group and represents 13% of the customer base.
    -![Histogram of ages](https://github.com/EriRika/Starbucks__DecisionTrees/blob/master/images/histogram_ages.png "Histogram of ages")
+   
+When filtering for the age=118 it turns out that all gender and income values are missing.
+   -![Age is 118](https://github.com/EriRika/Starbucks__DecisionTrees/blob/master/images/age_118.PNG "Age is 118)
+
+When filtering for the age!=118 it turns out none of the values are missing.
+   -![Age is not 118](https://github.com/EriRika/Starbucks__DecisionTrees/blob/master/images/age_Not_118.PNG "Age is 118")
+
+I will have to transform categorical variables into dummy variables, hence it is important to look at the unique values per category.
+
+   -![unique values by column](https://github.com/EriRika/Starbucks__DecisionTrees/blob/master/images/unique_by_col.PNG "unique values by column")
+
 
 
 I created buckets of 0.1 quantiles for the age to perform some plots. There are more males than females in the dataset. Interestingly the gap between males and females decreases with the age of the customer
