@@ -95,11 +95,12 @@ There are in total 10 offers. All of the offers are unique in terms of their cha
 #### profile
 There are in total 17000 customers in the dataset. I will have to perform some data cleaning later as there is one group of customers, which appears to have an age of 118. This group has missing values in income and gender. I assume that this is due to some data privacy restrictions.
    -![Profile](https://github.com/EriRika/Starbucks__DecisionTrees/blob/master/images/profile.PNG "Profile")
+
 The age group 118 is by far the biggest age group and represents 13% of the customer base.
    -![Histogram of ages](https://github.com/EriRika/Starbucks__DecisionTrees/blob/master/images/histogram_ages.png "Histogram of ages")
    
 When filtering for the age=118 it turns out that all gender and income values are missing.
-   -![Age is 118](https://github.com/EriRika/Starbucks__DecisionTrees/blob/master/images/age_118.PNG "Age is 118)
+   -![Age is 118](https://github.com/EriRika/Starbucks__DecisionTrees/blob/master/images/age_118.PNG "Age is 118")
 
 When filtering for the age!=118 it turns out none of the values are missing.
    -![Age is not 118](https://github.com/EriRika/Starbucks__DecisionTrees/blob/master/images/age_Not_118.PNG "Age is 118")
